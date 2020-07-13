@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.lysofts.gordion.session.Cart;
+import com.lysofts.gordion.session.Favorites;
 
 public class Profile extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
@@ -32,6 +34,8 @@ public class Profile extends AppCompatActivity {
 
     public void Logout(View view) {
         firebaseAuth.signOut();
+        new Cart(this).deleteAll();
+        new Favorites(this).deleteAll();
         startActivity(new Intent(Profile.this, SplashActivity.class));
         finish();
     }

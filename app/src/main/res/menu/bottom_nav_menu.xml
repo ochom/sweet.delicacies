@@ -12,9 +12,9 @@
         android:icon="@drawable/ic_search_black_24dp"
         app:showAsAction="always"/>
 
-    <item android:id="@+id/filter"
+    <item android:id="@+id/favorites"
         android:title="Filter"
-        android:icon="@drawable/ic_tune_black_24dp"
+        android:icon="@drawable/ic_favorite_border_black_24dp"
         app:showAsAction="always"/>
 
     <item android:id="@+id/view_mode"
