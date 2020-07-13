@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "22932281981",
+    "firebase_url": "https://godior-9c230.firebaseio.com",
+    "project_id": "godior-9c230",
+    "storage_bucket": "godior-9c230.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:22932281981:android:82cd06aa8d5e1cd817ef14",
+        "android_client_info": {
+          "package_name": "com.lysofts.gordion"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "22932281981-pne96n1fecai8lb1frrad6sh0n19240r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCjcMqqRA8xrbdm9mtDiM6iaxH1Qm3W414"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "22932281981-pne96n1fecai8lb1frrad6sh0n19240r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

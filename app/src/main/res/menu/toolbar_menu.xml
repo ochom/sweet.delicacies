@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".Dashboard">
+
+    <item android:id="@+id/cart"
+        android:title="Shopping Cart"
+        android:icon="@drawable/ic_shopping_cart_black_24dp"
+        app:showAsAction="always">
+    </item>
+
+    <item android:id="@+id/i_am_admin"
+        android:title="I AM Admin"
+        android:icon="@drawable/ic_add_a_photo_black_24dp"
+        app:showAsAction="always">
+    </item>
+
+    <item android:id="@+id/account"
+        android:title="Account"
+        android:icon="@drawable/ic_account_circle_black_24dp"
+        app:showAsAction="always">
+    </item>
+</menu>
