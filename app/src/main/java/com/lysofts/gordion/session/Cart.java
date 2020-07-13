@@ -2,6 +2,7 @@ package com.lysofts.gordion.session;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -45,14 +46,16 @@ public class Cart {
         productsList = gson.fromJson(sharedData, TYPE);
         for (ProductModel product: productsList){
             if (product.getId().equals(ID)){
+                Log.d("FAV>>>>>>",product.getName()+" Product found");
                 productsList.remove(product);
+
+                SharedPreferences.Editor editor  = sharedPreferences.edit();
+                editor.putString("cart", gson.toJson(productsList,TYPE));
+                editor.commit();
+                Log.d("FAV>>>>>>","Product deleted");
                 return;
             }
         }
-
-        SharedPreferences.Editor editor  = sharedPreferences.edit();
-        editor.putString("cart", gson.toJson(productsList,TYPE));
-        editor.commit();
     }
 
     public void deleteAll(){

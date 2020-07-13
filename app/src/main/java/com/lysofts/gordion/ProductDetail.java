@@ -16,11 +16,13 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.lysofts.gordion.models.ProductModel;
+import com.lysofts.gordion.session.Cart;
+import com.lysofts.gordion.session.Favorites;
 import com.squareup.picasso.Picasso;
 
 public class ProductDetail extends AppCompatActivity {
     private TextView name, price, description;
-    private ImageView image;
+    private ImageView image,imvFavorite, imvAddCart;
     ProductModel product;
     String id;
     DatabaseReference databaseReference;
@@ -29,8 +31,6 @@ public class ProductDetail extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_detail);
         product = (ProductModel) getIntent().getSerializableExtra("product");
-
-
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Product Details");
@@ -42,8 +42,10 @@ public class ProductDetail extends AppCompatActivity {
         price = findViewById(R.id.tv_product_price);
         description = findViewById(R.id.tv_product_description);
         image = findViewById(R.id.imv_product_image);
+        imvAddCart = findViewById(R.id.imv_cart_btn);
+        imvFavorite = findViewById(R.id.imv_favorite_btn);
 
-        if (product !=null){
+        if (product != null){
             gepProduct();
         }
 
@@ -55,5 +57,38 @@ public class ProductDetail extends AppCompatActivity {
         description.setText(product.getDescription());
         Picasso.get().load(product.getImage())
                 .into(image);
+
+        if (new Cart(this).isInCart(product.getId())){
+            imvAddCart.setTag(2);
+            imvAddCart.setImageResource(R.drawable.ic_shopping_cart_theme_24dp);
+        }
+        if (new Favorites(this).isInFavorites(product.getId())){
+            imvFavorite.setTag(2);
+            imvFavorite.setImageResource(R.drawable.ic_favorite_black_24dp);
+        }
+    }
+
+    public void addCart(View v){
+        if (Integer.parseInt(v.getTag().toString())==1){
+            ((ImageView)v).setImageResource(R.drawable.ic_shopping_cart_theme_24dp);
+            v.setTag(2);
+            new Cart(ProductDetail.this).add(product);
+        }else{
+            ((ImageView)v).setImageResource(R.drawable.ic_add_shopping_cart_black_24dp);
+            v.setTag(1);
+            new Cart(ProductDetail.this).delete(product.getId());
+        }
+    }
+
+    public void addFavorite(View v){
+        if (Integer.parseInt(v.getTag().toString())==1){
+            ((ImageView)v).setImageResource(R.drawable.ic_favorite_black_24dp);
+            v.setTag(2);
+            new Favorites(ProductDetail.this).add(product);
+        }else{
+            ((ImageView)v).setImageResource(R.drawable.ic_favorite_border_black_24dp);
+            v.setTag(1);
+            new Favorites(ProductDetail.this).delete(product.getId());
+        }
     }
 }
