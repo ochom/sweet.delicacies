@@ -1,14 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:id="@+id/nav_search"
-        android:title="Search"
-        android:icon="@drawable/ic_search_black_24dp"
-        app:showAsAction="always"/>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/nav_add_product"
         android:title="Add"
         android:icon="@drawable/ic_add_a_photo_black_24dp"
         app:showAsAction="always"/>
+
+    <item android:id="@+id/nav_search"
+        android:title="Search"
+        android:icon="@drawable/ic_search_black_24dp"
+        app:showAsAction="collapseActionView|ifRoom"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
 </menu>

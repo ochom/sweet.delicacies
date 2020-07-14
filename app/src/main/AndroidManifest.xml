@@ -9,7 +9,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".AdminSearchActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SearchActivity" />
         <activity android:name=".FavoritesActivity" />
         <activity android:name=".CheckOut" />
         <activity
@@ -17,7 +22,11 @@
             android:parentActivityName=".AdminPanel" />
         <activity
             android:name=".AdminPanel"
-            android:parentActivityName=".Dashboard" />
+            android:parentActivityName=".Dashboard">
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
         <activity
             android:name=".Signup"
             android:parentActivityName=".SplashActivity" />
@@ -27,7 +36,8 @@
         <activity
             android:name=".LoginActivity"
             android:parentActivityName=".SplashActivity" />
-        <activity android:name=".SplashActivity"
+        <activity
+            android:name=".SplashActivity"
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

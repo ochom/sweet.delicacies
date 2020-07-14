@@ -22,4 +22,5 @@
         <item>Accessories</item>
     </string-array>
     <string name="success_message">Your order has been submitted. Enter your M-Pesa PIN when requested to complete your order. Your order will also be Emailed to you @</string>
+    <string name="search_hint">Search product</string>
 </resources>
