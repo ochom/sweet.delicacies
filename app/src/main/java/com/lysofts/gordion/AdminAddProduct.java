@@ -102,8 +102,7 @@ public class AdminAddProduct extends AppCompatActivity {
         }else if (TextUtils.isEmpty(price)){
             Toast.makeText(this,"Please write product price", Toast.LENGTH_SHORT).show();
         }else {
-            progressDialog.setTitle("Add product");
-            progressDialog.setMessage("Uploading product files, please wait...");
+            progressDialog.setMessage("Uploading product, please wait...");
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
             storeProductInfo();
@@ -130,7 +129,7 @@ public class AdminAddProduct extends AppCompatActivity {
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(AdminAddProduct.this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(AdminAddProduct.this, "Image uploaded successfully", Toast.LENGTH_SHORT).show();
                 Task<Uri> uriTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                     @Override
                     public Task<Uri> then(@NonNull Task<UploadTask.TaskSnapshot> task) throws Exception {
@@ -148,6 +147,11 @@ public class AdminAddProduct extends AppCompatActivity {
                             downloadedImageUri = task.getResult().toString();
                             // Toast.makeText(AdminAddProduct.this, "Got Image URI already", Toast.LENGTH_SHORT).show();
                             saveProductInfoToDatabase();
+                        }else{
+                            if(progressDialog.isShowing()){
+                                progressDialog.dismiss();
+                            }
+                            Toast.makeText(AdminAddProduct.this, "Error: "+task.getException().getMessage().toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
                 });
@@ -169,12 +173,14 @@ public class AdminAddProduct extends AppCompatActivity {
         databaseReference.child(productRandomKey).updateChildren(productData).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                progressDialog.dismiss();
+                if(progressDialog.isShowing()){
+                    progressDialog.dismiss();
+                }
                 if (task.isSuccessful()){
                     Toast.makeText(AdminAddProduct.this, "Product added successfully", Toast.LENGTH_SHORT).show();
                     finish();
                 }else{
-                    Toast.makeText(AdminAddProduct.this, "Error: "+task.getException().toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminAddProduct.this, "Error: "+task.getException().getMessage().toString(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
