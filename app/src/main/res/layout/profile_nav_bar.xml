@@ -7,6 +7,7 @@
     android:layout_height="?attr/actionBarSize"
     android:background="@color/colorPrimary"
     android:gravity="center_vertical"
+    android:paddingRight="20dp"
     app:layout_collapseMode="pin"
     app:layout_scrollFlags="scroll|enterAlways"
     app:menu="@menu/profile_nav_menu"

@@ -4,9 +4,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item android:id="@+id/nav_add_product"
-        android:title="Add"
-        android:icon="@drawable/ic_add_a_photo_black_24dp"
-        app:showAsAction="always"/>
+        android:title="Add product"/>
+
+    <item android:id="@+id/nav_orders"
+        android:title="Active orders"/>
+
+    <item android:id="@+id/sales"
+        android:title="Sales summary"/>
 
     <item android:id="@+id/nav_search"
         android:title="Search"

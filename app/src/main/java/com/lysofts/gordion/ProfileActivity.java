@@ -53,6 +53,8 @@ public class ProfileActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Profile");
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         getUser();
 
@@ -82,6 +84,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.profile_nav_menu, menu);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -118,15 +121,6 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             }
         });
-    }
-
-    public void Logout(View view) {
-        firebaseAuth.signOut();
-        new Cart(this).deleteAll();
-        new Favorites(this).deleteAll();
-        startActivity(new Intent(ProfileActivity.this, SplashActivity.class));
-        finishAffinity();
-        Toast.makeText(ProfileActivity.this, "You have been logged out", Toast.LENGTH_SHORT).show();
     }
 
 }

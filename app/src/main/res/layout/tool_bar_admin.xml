@@ -12,6 +12,5 @@
     app:layout_constraintTop_toTopOf="parent"
     app:layout_scrollFlags="scroll|enterAlways"
     app:menu="@menu/toolbar_admin_menu"
-    app:theme="@style/MyToolbarTheme"
     app:title="Admin Dashboard"
     tools:layout_editor_absoluteX="20dp" />

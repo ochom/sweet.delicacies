@@ -28,7 +28,7 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:src="@drawable/ic_shopping_cart_theme_24dp"
+                android:src="@drawable/user_placeholder"
                 app:civ_border_width="2dp"
                 app:civ_border_color="#FF000000"/>
             <LinearLayout

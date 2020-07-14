@@ -14,6 +14,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.lysofts.gordion.session.Cart;
+import com.lysofts.gordion.session.Favorites;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
@@ -79,14 +81,14 @@ public class Dashboard extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
-            case R.id.account:
+            case R.id.nav_account:
                 if(firebaseAuth.getCurrentUser()!= null){
                     startActivity(new Intent(Dashboard.this, ProfileActivity.class));
                 }else{
                     startActivity(new Intent(Dashboard.this, SplashActivity.class));
                 }
                 return true;
-            case R.id.i_am_admin:
+            case R.id.nav_i_am_admin:
                 final String userID = firebaseAuth.getCurrentUser().getUid();
                 rootReference.child("Admins").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -103,8 +105,19 @@ public class Dashboard extends AppCompatActivity {
                     }
                 });
                 return true;
-            case R.id.cart:
+            case R.id.nav_cart:
                 startActivity(new Intent(Dashboard.this, CheckOut.class));
+                return true;
+            case R.id.nav_favorites:
+                startActivity(new Intent(Dashboard.this, FavoritesActivity.class));
+                return true;
+            case R.id.nav_logout:
+                firebaseAuth.signOut();
+                new Cart(this).deleteAll();
+                new Favorites(this).deleteAll();
+                startActivity(new Intent(Dashboard.this, SplashActivity.class));
+                finishAffinity();
+                Toast.makeText(Dashboard.this, "You have been logged out", Toast.LENGTH_SHORT).show();
                 return true;
             default:
                 Toast.makeText(this, "I dont know clicked button", Toast.LENGTH_SHORT).show();
