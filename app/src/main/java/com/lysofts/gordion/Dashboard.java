@@ -51,19 +51,22 @@ public class Dashboard extends AppCompatActivity {
 
     public void loadMenProducts(View view){
         Intent intent = new Intent(Dashboard.this, Products.class);
-        intent.putExtra("title","Men's "+view.getTag().toString());
+        intent.putExtra("type","Men");
+        intent.putExtra("category",view.getTag().toString());
         startActivity(intent);
     }
 
     public void loadWomenProducts(View view){
         Intent intent = new Intent(Dashboard.this, Products.class);
-        intent.putExtra("title","Women's "+view.getTag().toString());
+        intent.putExtra("type","Women");
+        intent.putExtra("category",view.getTag().toString());
         startActivity(intent);
     }
 
     public void loadChildrenProducts(View view){
         Intent intent = new Intent(Dashboard.this, Products.class);
-        intent.putExtra("title","Children's "+view.getTag().toString());
+        intent.putExtra("type","Children");
+        intent.putExtra("category",view.getTag().toString());
         startActivity(intent);
     }
 
@@ -101,7 +104,8 @@ public class Dashboard extends AppCompatActivity {
                 });
                 return true;
             case R.id.cart:
-                Toast.makeText(this, "Cart Clicked", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(Dashboard.this, CheckOut.class));
+                return true;
             default:
                 Toast.makeText(this, "I dont know clicked button", Toast.LENGTH_SHORT).show();
                 return super.onOptionsItemSelected(item);

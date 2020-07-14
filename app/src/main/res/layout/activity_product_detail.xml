@@ -77,6 +77,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginVertical="10dp"
                 android:background="@drawable/buttons"
+                android:onClick="rentNow"
                 android:text="Rent now"
                 android:textColor="@android:color/white" />
         </LinearLayout>
@@ -84,29 +85,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="10dp">
-            <ImageButton
-                android:id="@+id/imv_favorite_btn"
-                android:layout_alignParentRight="true"
-                android:tag="1"
-                android:onClick="addFavorite"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_favorite_border_black_24dp"
-                android:background="@drawable/cart_fav_bg"
-                android:padding="8dp"
-                android:layout_margin="8dp"
-                />
 
             <ImageButton
                 android:id="@+id/imv_cart_btn"
-                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
                 android:tag="1"
                 android:onClick="addCart"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/ic_add_shopping_cart_black_24dp"
+                android:background="@drawable/cart_fav_bg"
+                android:padding="8dp"
+                android:layout_margin="8dp"
+                />
+
+            <ImageButton
+                android:id="@+id/imv_favorite_btn"
+                android:layout_alignParentLeft="true"
+                android:tag="1"
+                android:onClick="addFavorite"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_favorite_border_black_24dp"
                 android:background="@drawable/cart_fav_bg"
                 android:padding="8dp"
                 android:layout_margin="8dp"

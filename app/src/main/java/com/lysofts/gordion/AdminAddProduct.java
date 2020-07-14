@@ -164,6 +164,7 @@ public class AdminAddProduct extends AppCompatActivity {
         productData.put("category",category);
         productData.put("price",price);
         productData.put("image",downloadedImageUri);
+        productData.put("type_category",type.substring(0, type.indexOf("'"))+"_"+category);
 
         databaseReference.child(productRandomKey).updateChildren(productData).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override

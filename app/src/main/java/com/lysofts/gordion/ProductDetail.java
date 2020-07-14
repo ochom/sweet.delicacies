@@ -35,8 +35,6 @@ public class ProductDetail extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Product Details");
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         name = findViewById(R.id.tv_product_name);
         price = findViewById(R.id.tv_product_price);
@@ -91,4 +89,15 @@ public class ProductDetail extends AppCompatActivity {
             new Favorites(ProductDetail.this).delete(product.getId());
         }
     }
+
+    public void rentNow(View v){
+        if (!new Cart(this).isInCart(product.getId())){
+            imvAddCart.setTag(2);
+            imvAddCart.setImageResource(R.drawable.ic_shopping_cart_theme_24dp);
+            new Cart(this).add(product);
+        }
+        startActivity(new Intent(ProductDetail.this, CheckOut.class));
+        finish();
+    }
+
 }

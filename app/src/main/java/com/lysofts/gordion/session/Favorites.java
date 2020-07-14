@@ -73,5 +73,11 @@ public class Favorites {
         }
         return false;
     }
+
+    public int countItems() {
+        String sharedData = sharedPreferences.getString("favorites",null);
+        productsList = gson.fromJson(sharedData, TYPE);
+        return productsList.size();
+    }
 }
 

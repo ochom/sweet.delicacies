@@ -25,24 +25,24 @@
             android:background="@drawable/ic_shopping_cart_theme_24dp"/>
 
         <ImageButton
-            android:id="@+id/imv_favorite_btn"
+            android:id="@+id/imv_cart_btn"
             android:layout_alignParentRight="true"
             android:tag="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_favorite_border_black_24dp"
+            android:src="@drawable/ic_add_shopping_cart_black_24dp"
             android:background="@drawable/cart_fav_bg"
             android:padding="8dp"
             android:layout_margin="8dp"
             />
 
         <ImageButton
-            android:id="@+id/imv_cart_btn"
+            android:id="@+id/imv_favorite_btn"
             android:layout_alignParentLeft="true"
             android:tag="1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_add_shopping_cart_black_24dp"
+            android:src="@drawable/ic_favorite_border_black_24dp"
             android:background="@drawable/cart_fav_bg"
             android:padding="8dp"
             android:layout_margin="8dp"

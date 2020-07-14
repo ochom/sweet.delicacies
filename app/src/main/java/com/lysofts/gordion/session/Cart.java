@@ -75,5 +75,22 @@ public class Cart {
         }
         return false;
     }
+
+    public int countItems() {
+        String sharedData = sharedPreferences.getString("cart",null);
+        productsList = gson.fromJson(sharedData, TYPE);
+        return productsList.size();
+    }
+
+    public int getBillAmount() {
+        int amount=0;
+        String sharedData = sharedPreferences.getString("cart",null);
+        if (sharedData == null){return amount;}
+        productsList = gson.fromJson(sharedData, TYPE);
+        for (ProductModel product: productsList){
+            amount += Integer.parseInt(product.getPrice());
+        }
+        return amount;
+    }
 }
 
