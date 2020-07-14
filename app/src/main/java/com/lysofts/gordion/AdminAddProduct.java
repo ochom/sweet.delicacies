@@ -26,11 +26,15 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.lysofts.gordion.models.ProductModel;
+import com.squareup.picasso.Picasso;
 
 import java.net.URI;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 public class AdminAddProduct extends AppCompatActivity {
     private String name, description, price, type, category,
@@ -39,10 +43,10 @@ public class AdminAddProduct extends AppCompatActivity {
     private Spinner fashion_type, fashion_category;
     private ImageView product_image;
     private static  final  int GALLERY_PICK = 1;
+    private ProductModel product;
     private Uri imageURI;
     private StorageReference imageRef;
     private DatabaseReference databaseReference;
-
     private ProgressDialog progressDialog;
 
     @Override
@@ -52,6 +56,7 @@ public class AdminAddProduct extends AppCompatActivity {
 
         imageRef = FirebaseStorage.getInstance().getReference().child("Product Images");
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Products");
+        product = (ProductModel) getIntent().getSerializableExtra("product");
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitle("Product Details");
@@ -67,6 +72,20 @@ public class AdminAddProduct extends AppCompatActivity {
         fashion_category = findViewById(R.id.sp_fashion_category);
 
         progressDialog = new ProgressDialog(this);
+        initValues();
+    }
+
+    private void initValues(){
+        String[] types = getResources().getStringArray(R.array.fashion_types);
+        String[] categories = getResources().getStringArray(R.array.fashion_categories);
+        if (product!=null){
+            Picasso.get().load(product.getImage()).into(product_image);
+            product_name.setText(product.getName());
+            product_description.setText(product.getDescription());
+            product_price.setText(product.getPrice());
+            fashion_type.setSelection(Arrays.asList(types).indexOf(product.getType()));
+            fashion_category.setSelection(Arrays.asList(categories).indexOf(product.getCategory()));
+        }
     }
 
     public void openGallery(View view) {
@@ -116,7 +135,7 @@ public class AdminAddProduct extends AppCompatActivity {
 
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss a");
         currentTime = timeFormat.format(calendar.getTime());
-        productRandomKey = currentDate+currentTime;
+        productRandomKey = (product != null)?product.getId():currentDate+currentTime;
 
         final StorageReference filePath = imageRef.child(imageURI.getLastPathSegment()+productRandomKey+".jpg");
         final UploadTask uploadTask = filePath.putFile(imageURI);
