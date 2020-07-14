@@ -9,13 +9,11 @@
     <string name="product_detail_title">Details</string>
     <string name="profile">Profile</string>
     <string-array name="fashion_types">
-        <item>General Fashion</item>
         <item>Men\'s Fashion</item>
         <item>Women\'s Fashion</item>
         <item>Children\'s Fashion</item>
     </string-array>
     <string-array name="fashion_categories">
-        <item>All Categories</item>
         <item>Shirts</item>
         <item>Trousers</item>
         <item>Suits</item>
@@ -23,17 +21,5 @@
         <item>Casual</item>
         <item>Accessories</item>
     </string-array>
-    <string name="title_activity_home">Home</string>
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
-    <string name="nav_header_title">Android Studio</string>
-    <string name="nav_header_subtitle">android.studio@android.com</string>
-    <string name="nav_header_desc">Navigation header</string>
-
-    <string name="menu_home">Home</string>
-    <string name="menu_gallery">Gallery</string>
-    <string name="menu_slideshow">Slideshow</string>
-
-    <string name="home_second">Home Second</string>
     <string name="success_message">Your order has been submitted. Enter your M-Pesa PIN when requested to complete your order. Your order will also be Emailed to you @</string>
 </resources>

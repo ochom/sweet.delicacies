@@ -85,6 +85,7 @@ public class AdminAddProduct extends AppCompatActivity {
             product_price.setText(product.getPrice());
             fashion_type.setSelection(Arrays.asList(types).indexOf(product.getType()));
             fashion_category.setSelection(Arrays.asList(categories).indexOf(product.getCategory()));
+            downloadedImageUri = product.getImage();
         }
     }
 
@@ -112,21 +113,53 @@ public class AdminAddProduct extends AppCompatActivity {
         type = fashion_type.getSelectedItem().toString();
         category = fashion_category.getSelectedItem().toString();
 
-        if (imageURI==null){
-            Toast.makeText(this,"Product image is required", Toast.LENGTH_SHORT).show();
-        }else if (TextUtils.isEmpty(name)){
+        if (TextUtils.isEmpty(name)){
             Toast.makeText(this,"Please write product name", Toast.LENGTH_SHORT).show();
         }else if (TextUtils.isEmpty(description)){
             Toast.makeText(this,"Please write product description", Toast.LENGTH_SHORT).show();
         }else if (TextUtils.isEmpty(price)){
             Toast.makeText(this,"Please write product price", Toast.LENGTH_SHORT).show();
+        }else if (imageURI==null && product==null){
+            Toast.makeText(this,"Product image is required", Toast.LENGTH_SHORT).show();
         }else {
             progressDialog.setMessage("Uploading product, please wait...");
             progressDialog.setCanceledOnTouchOutside(false);
             progressDialog.show();
-            storeProductInfo();
+            if (product!=null){
+                updateProductInfo();
+            }else{
+                storeProductInfo();
+            }
         }
     }
+
+    private void updateProductInfo() {
+        HashMap<String,Object> productData=new HashMap<>();
+        productData.put("id",product.getId());
+        productData.put("name",name);
+        productData.put("description",description);
+        productData.put("type",type);
+        productData.put("category",category);
+        productData.put("price",price);
+        productData.put("image",downloadedImageUri);
+        productData.put("type_category",type.substring(0, type.indexOf("'"))+"_"+category);
+
+        databaseReference.child(product.getId()).updateChildren(productData).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if(progressDialog.isShowing()){
+                    progressDialog.dismiss();
+                }
+                if (task.isSuccessful()){
+                    Toast.makeText(AdminAddProduct.this, "Product updated successfully", Toast.LENGTH_SHORT).show();
+                    finish();
+                }else{
+                    Toast.makeText(AdminAddProduct.this, "Error: "+task.getException().getMessage().toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
 
     private void storeProductInfo() {
         Calendar calendar = Calendar.getInstance();
@@ -135,7 +168,7 @@ public class AdminAddProduct extends AppCompatActivity {
 
         SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss a");
         currentTime = timeFormat.format(calendar.getTime());
-        productRandomKey = (product != null)?product.getId():currentDate+currentTime;
+        productRandomKey = currentDate+currentTime;
 
         final StorageReference filePath = imageRef.child(imageURI.getLastPathSegment()+productRandomKey+".jpg");
         final UploadTask uploadTask = filePath.putFile(imageURI);
