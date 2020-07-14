@@ -30,7 +30,7 @@ import java.util.HashMap;
 
 public class Signup extends AppCompatActivity {
     EditText et_name, et_email, et_phone, et_password;
-    ProgressDialog loadingBar;
+    ProgressDialog progressDialog;
     DatabaseReference rootReference;
     FirebaseAuth mAuth;
 
@@ -48,7 +48,7 @@ public class Signup extends AppCompatActivity {
         et_email = findViewById(R.id.et_email);
         et_phone = findViewById(R.id.et_phone);
         et_password = findViewById(R.id.et_password);
-        loadingBar = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -69,10 +69,9 @@ public class Signup extends AppCompatActivity {
         }else if(TextUtils.isEmpty(password)){
             Toast.makeText(this, "Please create a password", Toast.LENGTH_SHORT).show();
         }else{
-            loadingBar.setTitle("Create account");
-            loadingBar.setMessage("Please wait while we check your credentials");
-            loadingBar.setCanceledOnTouchOutside(false);
-            loadingBar.show();
+            progressDialog.setMessage("Authenticating. Please wait...");
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
             validatePhoneNumber(name,email,phone, password);
         }
     }
@@ -87,7 +86,7 @@ public class Signup extends AppCompatActivity {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()){
-                                Toast.makeText(Signup.this, "Registration successful", Toast.LENGTH_SHORT).show();
+                                //Toast.makeText(Signup.this, "Registration successful", Toast.LENGTH_SHORT).show();
                                 //create profile
                                 rootReference.addListenerForSingleValueEvent(new ValueEventListener() {
                                     @Override
@@ -99,14 +98,18 @@ public class Signup extends AppCompatActivity {
                                                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
-                                                        loadingBar.dismiss();
+                                                        if (progressDialog.isShowing()){
+                                                            progressDialog.dismiss();
+                                                        }
                                                         if(task.isSuccessful()){
-                                                            Toast.makeText(Signup.this, "Your profile has been created", Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(Signup.this, "Registration successful", Toast.LENGTH_SHORT).show();
+                                                            // Toast.makeText(Signup.this, "Your profile has been created", Toast.LENGTH_SHORT).show();
                                                             Intent intent = new Intent(Signup.this, Dashboard.class);
                                                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                                                             startActivity(intent);
+                                                            finishAffinity();
                                                         }else{
-                                                            Toast.makeText(Signup.this, "Network error, please try again after some time.", Toast.LENGTH_SHORT).show();
+                                                            Toast.makeText(Signup.this, "Error: "+ task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                                                         }
                                                     }
                                                 });
@@ -119,16 +122,12 @@ public class Signup extends AppCompatActivity {
                                 });
                             }
                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            loadingBar.dismiss();
-                            e.printStackTrace();
-                        }
                     });
                 }else {
                     // email existed
-                    loadingBar.dismiss();
+                    if (progressDialog.isShowing()){
+                        progressDialog.dismiss();
+                    }
                     Toast.makeText(Signup.this, "Email is already registered", Toast.LENGTH_SHORT).show();
                 }
             }

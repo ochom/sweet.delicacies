@@ -37,22 +37,24 @@ public class Cart {
 
     public List<ProductModel> getAll(){
         String sharedData = sharedPreferences.getString("cart",null);
-        productsList = gson.fromJson(sharedData, TYPE);
+        if (sharedData != null){
+            productsList = gson.fromJson(sharedData, TYPE);
+        }
         return productsList;
     }
 
     public void delete(String ID){
         String sharedData = sharedPreferences.getString("cart",null);
-        productsList = gson.fromJson(sharedData, TYPE);
+        if (sharedData != null){
+            productsList = gson.fromJson(sharedData, TYPE);
+        }
         for (ProductModel product: productsList){
             if (product.getId().equals(ID)){
-                Log.d("FAV>>>>>>",product.getName()+" Product found");
                 productsList.remove(product);
 
                 SharedPreferences.Editor editor  = sharedPreferences.edit();
                 editor.putString("cart", gson.toJson(productsList,TYPE));
                 editor.commit();
-                Log.d("FAV>>>>>>","Product deleted");
                 return;
             }
         }
@@ -66,8 +68,9 @@ public class Cart {
 
     public boolean isInCart(String ID){
         String sharedData = sharedPreferences.getString("cart",null);
-        if (sharedData == null){return false;}
-        productsList = gson.fromJson(sharedData, TYPE);
+        if (sharedData != null){
+            productsList = gson.fromJson(sharedData, TYPE);
+        }
         for (ProductModel product: productsList){
             if (product.getId().equals(ID)){
                return true;
@@ -78,15 +81,18 @@ public class Cart {
 
     public int countItems() {
         String sharedData = sharedPreferences.getString("cart",null);
-        productsList = gson.fromJson(sharedData, TYPE);
+        if (sharedData != null){
+            productsList = gson.fromJson(sharedData, TYPE);
+        }
         return productsList.size();
     }
 
     public int getBillAmount() {
         int amount=0;
         String sharedData = sharedPreferences.getString("cart",null);
-        if (sharedData == null){return amount;}
-        productsList = gson.fromJson(sharedData, TYPE);
+        if (sharedData != null){
+            productsList = gson.fromJson(sharedData, TYPE);
+        }
         for (ProductModel product: productsList){
             amount += Integer.parseInt(product.getPrice());
         }

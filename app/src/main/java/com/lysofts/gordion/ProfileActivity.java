@@ -6,6 +6,7 @@ import androidx.appcompat.widget.Toolbar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.lysofts.gordion.session.Cart;
@@ -27,17 +28,13 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    public void SignInWithEmailAndPassword(View view) {
-        startActivity(new Intent(ProfileActivity.this, Signup.class));
-        finish();
-    }
-
     public void Logout(View view) {
         firebaseAuth.signOut();
         new Cart(this).deleteAll();
         new Favorites(this).deleteAll();
         startActivity(new Intent(ProfileActivity.this, SplashActivity.class));
-        finish();
+        finishAffinity();
+        Toast.makeText(ProfileActivity.this, "You have been logged out", Toast.LENGTH_SHORT).show();
     }
 
 }

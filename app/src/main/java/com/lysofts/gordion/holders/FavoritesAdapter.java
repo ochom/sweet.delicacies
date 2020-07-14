@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.lysofts.gordion.CheckOut;
 import com.lysofts.gordion.FavoritesActivity;
 import com.lysofts.gordion.R;
 import com.lysofts.gordion.models.ProductModel;

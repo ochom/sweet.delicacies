@@ -28,12 +28,13 @@
                 android:id="@+id/et_street"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:background="@drawable/input_design"
                 android:hint="Building, Street"
-                android:textStyle="bold"
-                android:textSize="18sp"
+                android:inputType="text"
                 android:padding="15dp"
-                android:layout_margin="5dp"/>
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <EditText
                 android:id="@+id/et_city"
@@ -41,6 +42,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/input_design"
                 android:hint="City"
+                android:inputType="text"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:padding="15dp"
@@ -52,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/input_design"
                 android:hint="State, County"
+                android:inputType="text"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:padding="15dp"
@@ -79,6 +82,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/input_design"
                 android:hint="254712345678"
+                android:inputType="number"
                 android:textStyle="bold"
                 android:textSize="18sp"
                 android:padding="15dp"

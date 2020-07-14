@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class LoginActivity extends AppCompatActivity {
     EditText et_email, et_password;
-    ProgressDialog loadingBar;
+    ProgressDialog progressDialog;
     FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
 
         et_email = findViewById(R.id.et_email);
         et_password = findViewById(R.id.et_password);
-        loadingBar = new ProgressDialog(this);
+        progressDialog = new ProgressDialog(this);
     }
 
     public void Login(View view) {
@@ -46,26 +46,26 @@ public class LoginActivity extends AppCompatActivity {
         }else if(TextUtils.isEmpty(password)){
             Toast.makeText(this, "Please create a password", Toast.LENGTH_SHORT).show();
         }else{
-            loadingBar.setTitle("Sign in");
-            loadingBar.setMessage("Please wait while we check your credentials");
-            loadingBar.setCanceledOnTouchOutside(false);
-            loadingBar.show();
+            progressDialog.setMessage("Authenticating. Please wait...");
+            progressDialog.setCanceledOnTouchOutside(false);
+            progressDialog.show();
             firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(
                 new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()){
-                            Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                             Intent intent = new Intent(LoginActivity.this, Dashboard.class);
                             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                             startActivity(intent);
+                            finishAffinity();
+                            Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
                         } else {
                             // If sign in fails, display a message to the user.
-                            Log.w("TAG>>>>", "signInWithEmail:failure", task.getException());
-                            Toast.makeText(LoginActivity.this, "Authentication failed.",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(LoginActivity.this, "Error: "+task.getException().getMessage(),Toast.LENGTH_SHORT).show();
                         }
-
-                        loadingBar.dismiss();
+                        if (progressDialog.isShowing()){
+                            progressDialog.dismiss();
+                        }
                     }
                 }
             );

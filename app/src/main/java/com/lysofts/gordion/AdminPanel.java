@@ -5,6 +5,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
 public class AdminPanel extends AppCompatActivity {
@@ -16,11 +17,18 @@ public class AdminPanel extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setDisplayShowHomeEnabled(true);
     }
 
-    public void addProduct(View view) {
-        startActivity(new Intent(AdminPanel.this, AdminAddProduct.class));
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case R.id.nav_search:
+                return true;
+            case R.id.nav_add_product:
+                startActivity(new Intent(AdminPanel.this, AdminAddProduct.class));
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 }

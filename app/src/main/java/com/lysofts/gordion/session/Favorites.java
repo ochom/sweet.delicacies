@@ -15,10 +15,11 @@ import java.util.List;
 public class Favorites {
     SharedPreferences sharedPreferences;
     Gson gson = new Gson();
-    List<ProductModel> productsList = new ArrayList<>();
+    List<ProductModel> productsList;
     Type TYPE = new TypeToken<List<ProductModel>>(){}.getType();
     public Favorites(Context ctx){
         this.sharedPreferences = ctx.getSharedPreferences("session", Context.MODE_PRIVATE);
+        productsList = new ArrayList<>();
     }
 
     public void add(ProductModel product){
@@ -35,22 +36,24 @@ public class Favorites {
 
     public List<ProductModel> getAll(){
         String sharedData = sharedPreferences.getString("favorites",null);
-        productsList = gson.fromJson(sharedData, TYPE);
+        if (sharedData != null){
+            productsList = gson.fromJson(sharedData, TYPE);
+        }
         return productsList;
     }
 
     public void delete(String ID){
         String sharedData = sharedPreferences.getString("favorites",null);
-        productsList = gson.fromJson(sharedData, TYPE);
+        if (sharedData != null){
+            productsList = gson.fromJson(sharedData, TYPE);
+        }
         for (ProductModel product: productsList){
             if (product.getId().equals(ID)){
-                Log.d("FAV>>>>>>",product.getName()+" Product found");
                 productsList.remove(product);
 
                 SharedPreferences.Editor editor  = sharedPreferences.edit();
                 editor.putString("favorites", gson.toJson(productsList,TYPE));
                 editor.commit();
-                Log.d("FAV>>>>>>","Product deleted");
                 return;
             }
         }
@@ -64,8 +67,9 @@ public class Favorites {
 
     public boolean isInFavorites(String ID){
         String sharedData = sharedPreferences.getString("favorites",null);
-        if (sharedData == null){return false;}
-        productsList = gson.fromJson(sharedData, TYPE);
+        if (sharedData != null){
+            productsList = gson.fromJson(sharedData, TYPE);
+        }
         for (ProductModel product: productsList){
             if (product.getId().equals(ID)){
                 return true;
@@ -76,7 +80,9 @@ public class Favorites {
 
     public int countItems() {
         String sharedData = sharedPreferences.getString("favorites",null);
-        productsList = gson.fromJson(sharedData, TYPE);
+        if (sharedData != null){
+            productsList = gson.fromJson(sharedData, TYPE);
+        }
         return productsList.size();
     }
 }
