@@ -48,16 +48,16 @@
                 android:layout_weight="1"/>
 
             <ImageView
-                android:layout_marginTop="20dp"
                 android:id="@+id/btn_add_to_cart"
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/ic_add_shopping_cart_black_24dp"
-                android:layout_centerVertical="true"
-                android:background="@drawable/cart_fav_bg"
                 android:layout_alignParentRight="true"
-                android:layout_weight="1"/>
+                android:layout_centerVertical="true"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:background="@drawable/cart_fav_bg"
+                android:scaleType="centerCrop"
+                android:src="@drawable/ic_add_shopping_cart_black_24dp" />
 
         </LinearLayout>
 

@@ -81,7 +81,7 @@ public class Dashboard extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.account:
                 if(firebaseAuth.getCurrentUser()!= null){
-                    startActivity(new Intent(Dashboard.this, Profile.class));
+                    startActivity(new Intent(Dashboard.this, ProfileActivity.class));
                 }else{
                     startActivity(new Intent(Dashboard.this, SplashActivity.class));
                 }

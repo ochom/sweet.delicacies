@@ -11,7 +11,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.lysofts.gordion.session.Cart;
 import com.lysofts.gordion.session.Favorites;
 
-public class Profile extends AppCompatActivity {
+public class ProfileActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class Profile extends AppCompatActivity {
     }
 
     public void SignInWithEmailAndPassword(View view) {
-        startActivity(new Intent(Profile.this, Signup.class));
+        startActivity(new Intent(ProfileActivity.this, Signup.class));
         finish();
     }
 
@@ -36,7 +36,8 @@ public class Profile extends AppCompatActivity {
         firebaseAuth.signOut();
         new Cart(this).deleteAll();
         new Favorites(this).deleteAll();
-        startActivity(new Intent(Profile.this, SplashActivity.class));
+        startActivity(new Intent(ProfileActivity.this, SplashActivity.class));
         finish();
     }
+
 }

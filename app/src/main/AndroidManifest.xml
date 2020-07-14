@@ -9,8 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".SearchActivity"/>
-        <activity android:name=".FavoritesActivity"/>
+        <activity android:name=".SearchActivity"></activity>
+        <activity android:name=".FavoritesActivity" />
         <activity android:name=".CheckOut" />
         <activity
             android:name=".AdminAddProduct"
@@ -22,7 +22,7 @@
             android:name=".Signup"
             android:parentActivityName=".SplashActivity" />
         <activity
-            android:name=".Profile"
+            android:name=".ProfileActivity"
             android:parentActivityName=".Dashboard" />
         <activity
             android:name=".LoginActivity"

@@ -180,15 +180,12 @@ public class Products extends AppCompatActivity {
                         return true;
                     case R.id.nav_search:
                         startActivity(new Intent(Products.this, SearchActivity.class));
-                        finish();
                         return true;
                     case R.id.nav_favorites:
                         startActivity(new Intent(Products.this, FavoritesActivity.class));
-                        finish();
                         return true;
                     case R.id.nav_cart:
                         startActivity(new Intent(Products.this, CheckOut.class));
-                        finish();
                         return true;
                     default:
                         return false;

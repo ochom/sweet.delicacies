@@ -116,10 +116,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:layout_margin="20dp"
             android:background="@drawable/buttons"
-            android:textColor="@android:color/white"
-            android:text="LIPA NA M-PESA"
-            android:layout_margin="20dp"/>
+            android:onClick="checkOut"
+            android:text="PROCEED TO PAYMENT"
+            android:textColor="@android:color/white" />
 
     </RelativeLayout>
 
