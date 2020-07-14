@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.app.AlertDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.lysofts.gordion.holders.CheckoutListAdapter;
 import com.lysofts.gordion.models.ProductModel;
@@ -68,9 +70,9 @@ public class CheckOut extends AppCompatActivity {
 
         updateOtherUI();
 
+        firebaseAuth = FirebaseAuth.getInstance();
         ordersRef = FirebaseDatabase.getInstance().getReference().child("Orders");
         usersRefs = FirebaseDatabase.getInstance().getReference().child("Users");
-        firebaseAuth = FirebaseAuth.getInstance();
     }
 
     public void updateOtherUI() {
@@ -115,16 +117,20 @@ public class CheckOut extends AppCompatActivity {
         tv_county = parentView.findViewById(R.id.et_county);
         tv_mpesa = parentView.findViewById(R.id.et_mpesa_number);
 
+
         usersRefs.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if(snapshot.hasChild(firebaseAuth.getUid())){
-                    Profile profile = snapshot.child(firebaseAuth.getUid()).getValue(Profile.class);
+                Log.d(">>>>>>>>>>>", String.valueOf(snapshot));
+                if (snapshot.child(firebaseAuth.getCurrentUser().getUid()).exists()){
+                    Profile profile = snapshot.child(firebaseAuth.getCurrentUser().getUid()).getValue(Profile.class);
                     tv_street.setText(profile.getStreet());
                     tv_city.setText(profile.getCity());
                     tv_county.setText(profile.getCounty());
                     tv_mpesa.setText(profile.getMpesa());
+                    System.out.println("HEu>>>>>>>>>>"+profile);
                 }
+                System.out.println("HEu>>>>>>>>>>"+"FUCKkkkkkkkkkkkk");
             }
 
             @Override
@@ -134,9 +140,9 @@ public class CheckOut extends AppCompatActivity {
         });
 
         street=tv_street.getText().toString();
-        city=tv_street.getText().toString();
-        county=tv_street.getText().toString();
-        mpesa=tv_street.getText().toString();
+        city=tv_city.getText().toString();
+        county=tv_county.getText().toString();
+        mpesa=tv_mpesa.getText().toString();
 
         if (TextUtils.isEmpty(street)){
             Toast.makeText(this, "Street address of building is required", Toast.LENGTH_SHORT).show();
