@@ -33,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.lysofts.gordion.holders.CheckoutListAdapter;
 import com.lysofts.gordion.models.ProductModel;
 import com.lysofts.gordion.models.Profile;
+import com.lysofts.gordion.mpesa.Constants;
 import com.lysofts.gordion.mpesa.STK;
 import com.lysofts.gordion.session.Cart;
 
@@ -86,15 +87,16 @@ public class CheckOut extends AppCompatActivity {
         ordersRef = FirebaseDatabase.getInstance().getReference().child("Orders");
         usersRefs = FirebaseDatabase.getInstance().getReference().child("Users");
 
-        daraja = Daraja.with("Uku3wUhDw9z0Otdk2hUAbGZck8ZGILyh", "JDjpQBm5HpYwk38b", new DarajaListener<AccessToken>() {
+        daraja = Daraja.with(Constants.CONSUMER_KEY, Constants.CONSUMER_SECRETE, new DarajaListener<AccessToken>() {
             @Override
             public void onResult(@NonNull AccessToken accessToken) {
                 //Toast.makeText(CheckOut.this, "TOKEN : " + accessToken.getAccess_token(), Toast.LENGTH_SHORT).show();
+                Log.i(CheckOut.this.getClass().getSimpleName(), accessToken.getAccess_token());
             }
 
             @Override
             public void onError(String error) {
-                //Log.e(CheckOut.this.getClass().getSimpleName(), error);
+                Log.e(CheckOut.this.getClass().getSimpleName(), error);
             }
         });
     }
@@ -184,7 +186,7 @@ public class CheckOut extends AppCompatActivity {
 
     private void submitData() {
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat dateFormat = new SimpleDateFormat("MM dd, YYYY");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("MMddYYYY");
         SimpleDateFormat timeFormat  = new SimpleDateFormat("HH:mm:ss");
 
         order_key = firebaseAuth.getCurrentUser().getUid();
@@ -243,6 +245,7 @@ public class CheckOut extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()){
+                                    //Mpesa payment STK push
                                     new STK().push(daraja,mpesa, new Cart(CheckOut.this).getBillAmount(),order_key);
                                     if (alertDialog.isShowing()){
                                         alertDialog.dismiss();

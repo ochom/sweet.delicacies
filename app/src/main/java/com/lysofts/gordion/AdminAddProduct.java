@@ -167,10 +167,10 @@ public class AdminAddProduct extends AppCompatActivity {
 
     private void storeProductInfo() {
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MM dd, YYYY");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMddYYYY");
         currentDate = simpleDateFormat.format(calendar.getTime());
 
-        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ss a");
+        SimpleDateFormat timeFormat = new SimpleDateFormat("HH:mm:ssa");
         currentTime = timeFormat.format(calendar.getTime());
         productRandomKey = currentDate+currentTime;
 
@@ -236,7 +236,7 @@ public class AdminAddProduct extends AppCompatActivity {
                     Toast.makeText(AdminAddProduct.this, "Product added successfully", Toast.LENGTH_SHORT).show();
                     finish();
                 }else{
-                    Toast.makeText(AdminAddProduct.this, "Error: "+task.getException().getMessage().toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AdminAddProduct.this, "Error: "+task.getException().getMessage(), Toast.LENGTH_SHORT).show();
                 }
             }
         });
