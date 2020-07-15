@@ -11,6 +11,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
@@ -40,6 +41,7 @@ public class AdminAddProduct extends AppCompatActivity {
     private String name, description, price, type, category,
             currentDate,currentTime, downloadedImageUri, productRandomKey;
     private EditText product_name,product_description, product_price;
+    private Button btn_add_product;
     private Spinner fashion_type, fashion_category;
     private ImageView product_image;
     private static  final  int GALLERY_PICK = 1;
@@ -70,6 +72,7 @@ public class AdminAddProduct extends AppCompatActivity {
         product_price = findViewById(R.id.et_product_price);
         fashion_type = findViewById(R.id.sp_fashion_type);
         fashion_category = findViewById(R.id.sp_fashion_category);
+        btn_add_product = findViewById(R.id.btn_add_product);
 
         progressDialog = new ProgressDialog(this);
         initValues();
@@ -86,6 +89,7 @@ public class AdminAddProduct extends AppCompatActivity {
             fashion_type.setSelection(Arrays.asList(types).indexOf(product.getType()));
             fashion_category.setSelection(Arrays.asList(categories).indexOf(product.getCategory()));
             downloadedImageUri = product.getImage();
+            btn_add_product.setText("Update product");
         }
     }
 

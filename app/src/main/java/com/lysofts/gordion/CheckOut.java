@@ -29,6 +29,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.lysofts.gordion.holders.CheckoutListAdapter;
 import com.lysofts.gordion.models.ProductModel;
 import com.lysofts.gordion.models.Profile;
+import com.lysofts.gordion.mpesa.STK;
 import com.lysofts.gordion.session.Cart;
 
 import java.text.SimpleDateFormat;
@@ -225,6 +226,7 @@ public class CheckOut extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()){
+                                    new STK().push(mpesa, new Cart(CheckOut.this).getBillAmount(),order_key);
                                     if (alertDialog.isShowing()){
                                         alertDialog.dismiss();
                                     }

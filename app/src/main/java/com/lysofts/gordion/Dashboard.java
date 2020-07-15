@@ -81,6 +81,9 @@ public class Dashboard extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()){
+            case R.id.nav_search:
+                startActivity(new Intent(Dashboard.this, SearchActivity.class));
+                return true;
             case R.id.nav_account:
                 if(firebaseAuth.getCurrentUser()!= null){
                     startActivity(new Intent(Dashboard.this, ProfileActivity.class));

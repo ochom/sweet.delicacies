@@ -3,6 +3,8 @@ package com.lysofts.gordion;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -11,8 +13,11 @@ import android.app.SearchManager;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -38,6 +43,8 @@ public class AdminSearchActivity extends AppCompatActivity {
     private FirebaseRecyclerAdapter<ProductModel, AdminSearchActivity.ViewHolder> firebaseRecyclerAdapter;
     private LinearLayout no_data_view;
     AlertDialog alertDialog;
+    Toolbar toolbar;
+    Query firebaseQuery;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,33 +52,54 @@ public class AdminSearchActivity extends AppCompatActivity {
         setContentView(R.layout.activity_admin_search);
 
         no_data_view = findViewById(R.id.no_data);
-        recyclerView = findViewById(R.id.admin_products_list);
+        recyclerView = findViewById(R.id.search_list_view);
+
+        toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setHasFixedSize(true);
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Products");
+        searchProducts("");
     }
 
     @Override
-    protected void onNewIntent(Intent intent) {
-        super.onNewIntent(intent);
-        handleIntent(intent);
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search_activity_menu, menu);
+        MenuItem mSearch = menu.findItem(R.id.appSearchBar);
+        SearchView mSearchView = (SearchView) mSearch.getActionView();
+        mSearchView.setIconifiedByDefault(false);
+        mSearchView.requestFocus();
+        mSearchView.setQueryHint("Search");
+        mSearchView.setMaxWidth(Integer.MAX_VALUE);
+        mSearchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                searchProducts(query);
+                return false;
+            }
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                searchProducts(newText);
+                return true;
+            }
+        });
+        return super.onCreateOptionsMenu(menu);
     }
 
-    private void handleIntent(Intent intent) {
-        if (Intent.ACTION_SEARCH.equals(intent.getAction())) {
-            String query = intent.getStringExtra(SearchManager.QUERY);
-            //use the query to search your data somehow
-            Query firebaseQuery = databaseReference.orderByChild("name").startAt(query).endAt(query+"\uf8ff");
-            retrieveData(firebaseQuery);
+    private void searchProducts(String newText) {
+        if (TextUtils.isEmpty(newText)){
+            firebaseQuery = databaseReference;
+        }else{
+            firebaseQuery = databaseReference.orderByChild("name").startAt(newText).endAt(newText+"\uf8ff");
         }
-    }
-
-    private void retrieveData(Query query) {
         FirebaseRecyclerOptions<ProductModel> firebaseRecyclerOptions = new FirebaseRecyclerOptions.Builder<ProductModel>()
-                .setQuery(query, ProductModel.class)
-                .build();
+            .setQuery(firebaseQuery, ProductModel.class)
+            .build();
         firebaseRecyclerAdapter = new FirebaseRecyclerAdapter<ProductModel, AdminSearchActivity.ViewHolder>(firebaseRecyclerOptions) {
             @NonNull
             @Override
@@ -82,7 +110,6 @@ public class AdminSearchActivity extends AppCompatActivity {
 
             @Override
             protected void onBindViewHolder(@NonNull AdminSearchActivity.ViewHolder holder, int position, @NonNull final ProductModel model) {
-                Log.d("<>>>>>>>>>","product bound");
                 holder.setProduct(model);
                 holder.card_view.setOnClickListener(new View.OnClickListener() {
                     @Override

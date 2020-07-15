@@ -27,8 +27,6 @@ android {
             outputFileName = "Gordion.apk"
         }
     }
-
-
 }
 
 dependencies {
@@ -57,5 +55,6 @@ dependencies {
     implementation 'com.facebook.shimmer:shimmer:0.5.0'
     implementation 'com.google.code.gson:gson:2.8.6'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.androidstudy:daraja:1.0.2'
 
 }
