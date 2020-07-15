@@ -14,23 +14,10 @@ import com.androidstudy.daraja.util.TransactionType;
 public class STK {
     Daraja daraja;
     String phone_number, amount;
-    public void push(String phone, int bill_amount, String order_number){
+    public void push(Daraja daraja, String phone, int bill_amount, String order_number){
         this.phone_number = Utils.sanitizePhoneNumber(phone);
-        Log.d("<MPESA>>>>>>><<", phone_number);
         this.amount = String.valueOf(bill_amount);
-        daraja = Daraja.with(
-                Constants.CONSUMER_KEY, Constants.CONSUMER_SECRETE, new DarajaListener<AccessToken>() {
-                    @Override
-                    public void onResult(@NonNull AccessToken accessToken) {
-
-                    }
-
-                    @Override
-                    public void onError(String error) {
-
-                    }
-                }
-        );
+        this.daraja = daraja;
 
         LNMExpress lnmExpress = new LNMExpress(
                 Constants.BUSINESS_SHORT_CODE,
@@ -40,22 +27,24 @@ public class STK {
                 phone_number,
                 "174379",
                 phone_number,
-                Constants.CALLBACKURL+order_number,
+                Constants.CALLBACKURL+order_number+"/",
                 "Godior",
                 "Goods Payment"
         );
+
+        Log.d("<<MPESA>>>>>>>", "NOW PAYING");
 
         daraja.requestMPESAExpress(lnmExpress,
                 new DarajaListener<LNMResult>() {
 
                     @Override
                     public void onResult(@NonNull LNMResult lnmResult) {
-                        Log.i("MPESA>>>>>>", lnmResult.ResponseDescription);
+                        Log.i("<<MPESA>>>>>>>", lnmResult.ResponseDescription);
                     }
 
                     @Override
                     public void onError(String error) {
-                        Log.i("MPESA>>>>>>", error);
+                        Log.i("<<MPESA>>>>>>>", error);
                     }
                 }
         );

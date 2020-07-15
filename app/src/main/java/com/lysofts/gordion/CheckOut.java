@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,9 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.androidstudy.daraja.Daraja;
+import com.androidstudy.daraja.DarajaListener;
+import com.androidstudy.daraja.model.AccessToken;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -53,6 +57,7 @@ public class CheckOut extends AppCompatActivity {
     String street, city, county, mpesa;
 
     ProgressDialog progressDialog;
+    Daraja daraja;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,6 +85,18 @@ public class CheckOut extends AppCompatActivity {
         firebaseAuth = FirebaseAuth.getInstance();
         ordersRef = FirebaseDatabase.getInstance().getReference().child("Orders");
         usersRefs = FirebaseDatabase.getInstance().getReference().child("Users");
+
+        daraja = Daraja.with("Uku3wUhDw9z0Otdk2hUAbGZck8ZGILyh", "JDjpQBm5HpYwk38b", new DarajaListener<AccessToken>() {
+            @Override
+            public void onResult(@NonNull AccessToken accessToken) {
+                //Toast.makeText(CheckOut.this, "TOKEN : " + accessToken.getAccess_token(), Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onError(String error) {
+                //Log.e(CheckOut.this.getClass().getSimpleName(), error);
+            }
+        });
     }
 
     public void updateOtherUI() {
@@ -226,7 +243,7 @@ public class CheckOut extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 if (task.isSuccessful()){
-                                    new STK().push(mpesa, new Cart(CheckOut.this).getBillAmount(),order_key);
+                                    new STK().push(daraja,mpesa, new Cart(CheckOut.this).getBillAmount(),order_key);
                                     if (alertDialog.isShowing()){
                                         alertDialog.dismiss();
                                     }
