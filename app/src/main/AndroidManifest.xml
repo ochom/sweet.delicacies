@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.lysofts.gordion">
+    xmlns:tools="http://schemas.android.com/tools"
+    package="com.sweet.delicacies">
+
+    <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:allowBackup="true"
@@ -9,30 +12,48 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".AdminSearchActivity"
-            android:parentActivityName=".AdminPanel"/>
-        <activity android:name=".SearchActivity" />
-        <activity android:name=".FavoritesActivity" />
-        <activity android:name=".CheckOut" />
+
+        <meta-data android:name="com.facebook.sdk.ApplicationId"
+            android:value="@string/facebook_app_id"
+            tools:replace="android:value"/>
+
+        <activity android:name="com.facebook.FacebookActivity"
+            android:configChanges=
+                "keyboard|keyboardHidden|screenLayout|screenSize|orientation"
+            android:label="@string/app_name" />
         <activity
-            android:name=".AdminAddProduct"
-            android:parentActivityName=".AdminPanel" />
+            android:name="com.facebook.CustomTabActivity"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="@string/fb_login_protocol_scheme" />
+            </intent-filter>
+        </activity>
+
+
+        <activity android:name="com.sweet.delicacies.FavoritesActivity" />
+        <activity android:name="com.sweet.delicacies.CheckOut" />
         <activity
-            android:name=".AdminPanel"
-            android:parentActivityName=".Dashboard"
+            android:name="com.sweet.delicacies.AdminAddProduct"
+            android:parentActivityName="com.sweet.delicacies.AdminPanel" />
+        <activity
+            android:name="com.sweet.delicacies.AdminPanel"
+            android:parentActivityName="com.sweet.delicacies.Products"
             android:label="@string/app_name">
         </activity>
         <activity
-            android:name=".Signup"
-            android:parentActivityName=".SplashActivity" />
+            android:name="com.sweet.delicacies.Signup"
+            android:parentActivityName="com.sweet.delicacies.SplashActivity" />
         <activity
-            android:name=".ProfileActivity"
-            android:parentActivityName=".Dashboard" />
+            android:name="com.sweet.delicacies.ProfileActivity"
+            android:parentActivityName="com.sweet.delicacies.Products" />
         <activity
-            android:name=".LoginActivity"
-            android:parentActivityName=".SplashActivity" />
+            android:name="com.sweet.delicacies.LoginActivity"
+            android:parentActivityName="com.sweet.delicacies.SplashActivity" />
         <activity
-            android:name=".SplashActivity"
+            android:name="com.sweet.delicacies.SplashActivity"
             android:theme="@style/AppTheme.Launcher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -40,14 +61,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Dashboard" />
         <activity
-            android:name=".Products"
-            android:label="@string/app_name"
-            android:parentActivityName=".Dashboard" />
+            android:name="com.sweet.delicacies.Products"
+            android:label="@string/app_name"/>
         <activity
-            android:name=".ProductDetail"
-            android:parentActivityName=".Products" />
+            android:name="com.sweet.delicacies.ProductDetail"
+            android:parentActivityName="com.sweet.delicacies.Products" />
     </application>
 
 </manifest>

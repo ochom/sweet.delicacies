@@ -9,17 +9,6 @@
 
     <include layout="@layout/tool_bar_dashboard" />
 
-    <com.google.android.material.tabs.TabLayout
-        android:id="@+id/tabLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:minHeight="?actionBarSize"
-        app:tabGravity="fill"
-        app:tabIndicatorColor="@android:color/white"
-        app:tabIndicatorHeight="1dp"
-        app:tabBackground="@color/colorPrimary"
-        app:tabMode="fixed">
-    </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"

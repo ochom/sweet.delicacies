@@ -1,34 +1,33 @@
 {
   "project_info": {
-    "project_number": "22932281981",
-    "firebase_url": "https://godior-9c230.firebaseio.com",
-    "project_id": "godior-9c230",
-    "storage_bucket": "godior-9c230.appspot.com"
+    "project_number": "514808269778",
+    "project_id": "sweet-delicacies-af34a",
+    "storage_bucket": "sweet-delicacies-af34a.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:22932281981:android:82cd06aa8d5e1cd817ef14",
+        "mobilesdk_app_id": "1:514808269778:android:68eaa5f93f2630ee98d60b",
         "android_client_info": {
-          "package_name": "com.lysofts.gordion"
+          "package_name": "com.sweet.delicacies"
         }
       },
       "oauth_client": [
         {
-          "client_id": "22932281981-pne96n1fecai8lb1frrad6sh0n19240r.apps.googleusercontent.com",
+          "client_id": "514808269778-rv764a3m8eaile71mqngtbiu8t9o8bvh.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCjcMqqRA8xrbdm9mtDiM6iaxH1Qm3W414"
+          "current_key": "AIzaSyD4df1cT-j-rlpclsfYFQB9GxJXFXAjEq8"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "22932281981-pne96n1fecai8lb1frrad6sh0n19240r.apps.googleusercontent.com",
+              "client_id": "514808269778-rv764a3m8eaile71mqngtbiu8t9o8bvh.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

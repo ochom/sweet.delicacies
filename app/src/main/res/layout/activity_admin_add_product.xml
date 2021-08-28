@@ -26,7 +26,7 @@
             android:id="@+id/et_product_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="product name"
+            android:hint="@string/product_name"
             android:inputType="text"
             android:singleLine="true"
             android:padding="15dp"
@@ -39,29 +39,7 @@
             android:id="@+id/et_product_description"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="product description"
-            android:padding="15dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/input_design"/>
-
-        <Spinner
-            android:id="@+id/sp_fashion_type"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/fashion_types"
-            android:padding="15dp"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/input_design"/>
-
-        <Spinner
-            android:id="@+id/sp_fashion_category"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:entries="@array/fashion_categories"
+            android:hint="@string/product_description"
             android:padding="15dp"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -72,8 +50,8 @@
             android:id="@+id/et_product_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="price"
-            android:inputType="number"
+            android:hint="@string/price"
+            android:inputType="numberDecimal"
             android:padding="15dp"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -89,7 +67,7 @@
             android:onClick="addProduct"
             android:background="@drawable/buttons"
             android:textColor="@android:color/white"
-            android:text="Add product"/>
+            android:text="@string/add_product"/>
 
     </LinearLayout>
 </LinearLayout>
